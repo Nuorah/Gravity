@@ -1,5 +1,6 @@
 
-	import java.awt.Graphics;
+	import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
@@ -12,18 +13,18 @@ import java.awt.geom.Ellipse2D;
 	public class Main2 extends JPanel {
 		
 		double x0 = 300;
-		double y0 = 250;
+		double y0 = 200;
 		
 		double cosTheta;
 		double sinTheta;
 		double D;
 		double F;
-		double G = -0.5;
+		double G = 1.5;
 		
 		double x = 400;
-		double y = 230;
+		double y = 400;
 		
-		double f = 0.0001;
+		double f = 0.00;
 		
 		double m = 200;
 		double m0 = 200;
@@ -31,13 +32,13 @@ import java.awt.geom.Ellipse2D;
 		double r = m/10;
 		double r0 = m0/10;
 		
-		double g = 0.1;
-		double g0 = 0.1;
+		double g = 0;
+		double g0 = 0;
 		
-		double dx = -2;
+		double dx = -1;
 		double dy = 0;
 		
-		double dx0 = 0;
+		double dx0 = 1;
 		double dy0 = 0;
 	
 		double ax = 0;
@@ -99,9 +100,10 @@ import java.awt.geom.Ellipse2D;
 				dy0 = dy0 + (2*m/(m+m0))*((olddx - olddx0)*deltax + (olddy - dy0)*deltay)*(deltay/(D*D));
 			}
 			
-			if(D < (r + r0)/2 - 1 ){D = (r + r0)/2 ;}
+			//if(D < (r + r0)/2 - 1 ){D = (r + r0)/2 ;}
 			
 			F = G/(D*D);
+			if(D < (r + r0)/2){F =0;}// -0.5*G/(D*D);}
 			
 			cosTheta = deltax/D;
 			sinTheta = deltay/D;
@@ -150,10 +152,13 @@ import java.awt.geom.Ellipse2D;
 		public static void main(String[] args) throws InterruptedException {
 			JFrame frame = new JFrame("Mini Tennis");
 			Main2 game = new Main2();
+			game.setPreferredSize(new Dimension(800, 600));
 			frame.add(game);
-			frame.setSize(800, 600);
+			
 			frame.setVisible(true);
+			frame.setResizable(false);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.pack();
 		
 			while (true) {
 				game.moveBall();
